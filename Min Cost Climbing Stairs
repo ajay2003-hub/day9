@@ -1,0 +1,27 @@
+class Solution {
+    public static int calCost(int si, int[] cost, int[] dp) {
+        if (si >= cost.length) {
+            return 0; // No cost beyond the top
+        }
+
+        if (dp[si] != -1) {
+            return dp[si];
+        }
+
+        int oneStep = calCost(si + 1, cost, dp);
+        int twoSteps = calCost(si + 2, cost, dp);
+
+        return dp[si] = cost[si] + Math.min(oneStep, twoSteps);
+    }
+
+    public int minCostClimbingStairs(int[] cost) {
+        int[] dp = new int[cost.length + 1];
+        Arrays.fill(dp, -1);
+
+        // You can start from step 0 or 1
+        int costFromZero = calCost(0, cost, dp);
+        int costFromOne = calCost(1, cost, dp);
+
+        return Math.min(costFromZero, costFromOne);
+    }
+}
