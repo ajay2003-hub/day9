@@ -1,0 +1,23 @@
+class Solution {
+    public static boolean check(int si,int nums[],Boolean[] dp){
+        //base case
+        if(si==nums.length-1){
+            return true;
+        }
+
+        if(dp[si]!=null){
+            return dp[si];
+        }
+        int choice=nums[si];
+        for(int i=1;i<=choice;i++){
+            if(check(si+i,nums,dp)){
+                return dp[si]=true;
+            }
+        }
+        return dp[si]=false;
+    }
+    public boolean canJump(int[] nums) {
+        Boolean dp[]=new Boolean[nums.length];
+        return check(0,nums,dp);
+    }
+}
